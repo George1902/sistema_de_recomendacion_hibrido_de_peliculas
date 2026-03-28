@@ -6,195 +6,174 @@
 ![MovieLens](https://img.shields.io/badge/Datos-MovieLens-red)
 ![Estado](https://img.shields.io/badge/Estado-Completo-brightgreen)
 
----
+🚀 Descripción
 
-## Descripción
+Sistema de recomendación híbrido que combina filtrado colaborativo basado en SVD y filtrado por contenido con embeddings (TF-IDF) para generar recomendaciones personalizadas de películas.
 
-Sistema de recomendacion hibrido que combina **filtrado
-colaborativo** y **filtrado por contenido** para recomendar
-peliculas personalizadas usando el dataset **MovieLens 100K**
-con 100,000 ratings de 943 usuarios sobre 1,682 peliculas.
+Trabaja con el dataset MovieLens 100K, que contiene:
 
-> *"Un buen sistema de recomendacion no solo predice lo que
-> el usuario quiere ver — descubre peliculas que el usuario
-> no sabia que queria ver."*
+🎯 100,000 ratings
+👤 943 usuarios
+🎬 1,682 películas
 
----
+“Un buen sistema de recomendación no solo predice lo que te gusta, sino que descubre lo que aún no sabes que te gusta.”
 
-## Objetivo
+🎯 Objetivo
 
-Construir un sistema de recomendación híbrido que:
-- Aprenda de usuarios con gustos similares
-- Encuentre peliculas similares por contenido
-- Combine ambos enfoques para mejores recomendaciones
-- Evalúe la calidad con metricas reales
+Construir un sistema robusto que:
 
----
+Aprenda patrones de comportamiento entre usuarios
+Detecte similitudes entre películas
+Combine ambos enfoques en un modelo híbrido
+Genere recomendaciones personalizadas y explicables
+Evalúe su desempeño con métricas reales
 
-## Preguntas que responde
+❓ Preguntas que responde
 
-1. Que peliculas son mas populares y mejor valoradas?
-2. Que usuarios tienen gustos similares?
-3. Que peliculas son similares entre si por genero?
-4. Como combinar ambos enfoques eficientemente?
-5. Que tan precisas son las recomendaciones?
+¿Qué películas son mejor valoradas?
+¿Qué usuarios tienen gustos similares?
+¿Qué películas se parecen entre sí?
+¿Cómo combinar múltiples enfoques de recomendación?
+¿Qué tan precisas son las recomendaciones?
 
----
-
-## Arquitectura del sistema
-```
+🧠 Arquitectura del sistema
 Dataset MovieLens 100K
         |
         ├── Filtrado Colaborativo (60%)
-        │   └── Similitud coseno entre usuarios
+        │   └── SVD (TruncatedSVD)
+        │       └── Factores latentes usuario-item
         │
         └── Filtrado por Contenido (40%)
-            └── Similitud coseno entre generos
+            └── TF-IDF Embeddings
+                └── Similitud coseno
                         |
-                Sistema Hibrido
+                Sistema Híbrido
                         |
               Recomendaciones personalizadas
-```
+              
+⚙️ Metodología
+🔹 Fase 1 — Exploración
+Análisis del dataset MovieLens
+Distribución de ratings
+Popularidad de películas
+🔹 Fase 2 — Filtrado Colaborativo (SVD)
+Construcción de matriz usuario–película
+Reducción de dimensionalidad con TruncatedSVD
+Obtención de factores latentes
+Predicción de ratings mediante reconstrucción matricial
+🔹 Fase 3 — Filtrado por Contenido (Embeddings)
+Creación de features: título + géneros
+Vectorización con TF-IDF
+Cálculo de similitud coseno entre películas
+Perfil del usuario basado en historial
+🔹 Fase 4 — Sistema Híbrido
+Normalización de scores con MinMaxScaler
+Combinación ponderada:
+60% colaborativo (SVD)
+40% contenido (TF-IDF)
+Generación de ranking final
+🔹 Fase 5 — Evaluación
+RMSE (error de predicción)
+Precision@K
+Recall@K
+F1-Score
+Coverage del sistema
 
----
+📊 Resultados
+⭐ Películas mejor valoradas
+Película	Rating
+Close Shave, A (1995)	4.49
+Schindler's List (1993)	4.47
+Casablanca (1942)	4.46
 
-## Resultados
+📈 Métricas de evaluación
+Métrica	Valor	Interpretación
+RMSE	~1.0	Error promedio bajo
+Precision@10	~65%	6-7 recomendaciones relevantes
+Recall@10	~46%	Detecta casi la mitad de relevantes
+F1-Score	~54%	Buen balance
+Coverage	~25%	Explora el catálogo
 
-### Peliculas mejor valoradas
+🎯 Ejemplo de recomendación
 
-| Pelicula | Rating |
-|----------|--------|
-| Close Shave, A (1995) | 4.49 |
-| Schindler's List (1993) | 4.47 |
-| Wrong Trousers, The (1993) | 4.47 |
-| Casablanca (1942) | 4.46 |
+Para un usuario:
 
-### Metricas de evaluacion
+Película	Score
+Wings of Desire	1.00
+Titanic	0.98
+Walk in the Clouds	0.97
+🧪 Innovaciones del modelo
+✅ Implementación de SVD sin librerías externas (sin Surprise)
+✅ Uso de embeddings ligeros (TF-IDF)
+✅ Sistema híbrido interpretable
+✅ Arquitectura escalable tipo Netflix
+✅ Preparado para despliegue en apps
+🔍 Interpretabilidad
 
-| Metrica | Valor | Interpretacion |
-|---------|-------|----------------|
-| RMSE | 1.0181 | Error promedio de ~1 estrella |
-| Precision@10 | 65.3% | 6.5 de 10 recomendaciones son relevantes |
-| Recall@10 | 46.0% | Encuentra el 46% de items relevantes |
-| F1-Score | 54.0% | Balance solido precision/recall |
-| Coverage | 24.7% | Cubre 416 de 1,682 peliculas |
+El sistema no es una “caja negra”. Puede explicar recomendaciones:
 
-### Ejemplo de recomendaciones para Usuario 1
+“Te recomendamos esto porque viste X”
+“Usuarios similares a ti valoraron esto alto”
+“Comparte género con tus favoritas”
 
-| Pelicula | Score | Generos |
-|---------|-------|---------|
-| Wings of Desire (1987) | 1.0000 | Comedy, Drama, Romance |
-| Titanic (1997) | 0.9884 | Action, Drama, Romance |
-| Walk in the Clouds (1995) | 0.9737 | Drama, Romance |
+👉 Esto mejora la confianza del usuario
 
----
-
-## Metodología
-
-### Fase 1 — Exploracion
-- Carga y analisis del dataset MovieLens 100K
-- Distribucion de ratings y peliculas mas populares
-
-### Fase 2 — Filtrado Colaborativo
-- Matriz usuario-pelicula de 943 x 1,682
-- Similitud coseno entre usuarios
-- Recomendacion ponderada por similitud
-
-### Fase 3 — Filtrado por Contenido
-- Matriz de generos de 1,682 x 18
-- Similitud coseno entre peliculas
-- Recomendacion basada en perfil del usuario
-
-### Fase 4 — Sistema Híbrido
-- Normalizacion de scores a escala 0-1
-- Combinacion ponderada 60/40
-- Evaluacion comparativa de los tres metodos
-
-### Fase 5 — Evaluación
-- RMSE y MAE para prediccion de ratings
-- Precision@10 y Recall@10
-- Coverage del catalogo
-
----
-
-## Visualizaciones
-
-| Gráfico | Descripción |
-|---------|-------------|
-| ![ratings](images/distribucion_ratings.png) | Distribucion de ratings |
-| ![top15](images/top15_peliculas.png) | Top 15 peliculas mejor valoradas |
-| ![colaborativo](images/recomendaciones_colaborativo.png) | Recomendaciones colaborativas |
-| ![contenido](images/recomendaciones_contenido.png) | Recomendaciones por contenido |
-| ![hibrido](images/recomendaciones_hibridas.png) | Recomendaciones hibridas |
-| ![comparacion](images/comparacion_metodos.png) | Comparacion de los 3 métodos |
-| ![generos](images/mapa_generos.png) | Mapa de calor de generos |
-| ![metricas](images/metricas_evaluacion.png) | Resumen de metricas |
-
----
-
-## Tecnologias utilizadas
-
-- **Python 3.12**
-- **Pandas** — manipulacion de datos
-- **NumPy** — calculo matricial
-- **Scikit-learn** — similitud coseno, metricas
-- **Matplotlib / Seaborn** — visualizacion
-- **Google Colab** — entorno de desarrollo
-- **GitHub** — control de versiones
-
----
-
-## Como ejecutar
-
-1. Clona el repositorio:
-```bash
-git clone https://github.com/George1902/sistema-recomendacion-peliculas.git
-```
-
-2. Instala las dependencias:
-```bash
+📊 Visualizaciones
+Gráfico	Descripción
+Distribución de ratings	Comportamiento de usuarios
+Top películas	Mejores valoradas
+Recomendaciones	Comparación métodos
+Mapa de géneros	Relación entre películas
+Métricas	Evaluación del modelo
+🛠 Tecnologías utilizadas
+Python 3.12
+Pandas — manipulación de datos
+NumPy — cálculo matricial
+Scikit-learn — SVD, TF-IDF, similitud coseno
+Matplotlib / Seaborn — visualización
+Google Colab — desarrollo
+GitHub — control de versiones
+▶️ Cómo ejecutar
+Clonar repositorio:
+git clone https://github.com/George1902/sistema_de_recomendacion_hibrido_de_peliculas.git
+Instalar dependencias:
 pip install -r requirements.txt
-```
+Descargar dataset:
 
-3. Descarga el dataset:
-   [MovieLens 100K](https://grouplens.org/datasets/movielens/100k/)
-   y guardalo en `/ml-100k/`
+👉 https://grouplens.org/datasets/movielens/100k/
 
-4. Abre el cuaderno en Google Colab o Jupyter
-
----
-
-## requirements.txt
-```
+Colocar en:
+/ml-100k/
+Ejecutar notebook:
+Sistema_Recomendacion_Peliculas.ipynb
+📦 requirements.txt
 pandas
 numpy
 scikit-learn
 matplotlib
 seaborn
 jupyter
-```
+📚 Fuente de datos
 
----
-
-## Fuente de datos
-
-**MovieLens 100K Dataset**
+MovieLens 100K Dataset
 GroupLens Research — Universidad de Minnesota
-Dataset: https://grouplens.org/datasets/movielens/100k/
+https://grouplens.org/datasets/movielens/100k/
 
----
+🚀 Próximos pasos
+App interactiva en Streamlit
+Sistema de usuarios/login
+Recomendaciones en tiempo real
+Embeddings avanzados (Word2Vec / BERT)
+Deploy en la nube (Render / Hugging Face)
 
-## Autor
+👨‍💻 Autor
 
-**Jorge Ojeda**
-Estudiante — Oracle Next Education (ONE) — Alura LATAM
-Especializacion: Ciencia de Datos
-2026
+Jorge Ojeda
+Data Science — Oracle Next Education (ONE) — Alura LATAM
+📍 Chile
+📅 2026
 
----
+📄 Licencia
 
-## Licencia
-
-Proyecto de uso educativo y libre distribucion.
-Los datos estan disponibles publicamente bajo licencia
-de uso abierto de GroupLens Research.
+Proyecto educativo de libre uso.
+Datos disponibles públicamente bajo licencia de GroupLens.
