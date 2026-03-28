@@ -1,4 +1,4 @@
-# Sistema de Recomendacion Híbrido de Peliculas
+# Sistema de Recomendación Híbrido de Peliculas
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange)
@@ -8,7 +8,7 @@
 
 ---
 
-## Descripcion
+## Descripción
 
 Sistema de recomendacion hibrido que combina **filtrado
 colaborativo** y **filtrado por contenido** para recomendar
@@ -23,7 +23,7 @@ con 100,000 ratings de 943 usuarios sobre 1,682 peliculas.
 
 ## Objetivo
 
-Construir un sistema de recomendacion hibrido que:
+Construir un sistema de recomendación híbrido que:
 - Aprenda de usuarios con gustos similares
 - Encuentre peliculas similares por contenido
 - Combine ambos enfoques para mejores recomendaciones
@@ -89,7 +89,7 @@ Dataset MovieLens 100K
 
 ---
 
-## Metodologia
+## Metodología
 
 ### Fase 1 — Exploracion
 - Carga y analisis del dataset MovieLens 100K
@@ -105,12 +105,12 @@ Dataset MovieLens 100K
 - Similitud coseno entre peliculas
 - Recomendacion basada en perfil del usuario
 
-### Fase 4 — Sistema Hibrido
+### Fase 4 — Sistema Híbrido
 - Normalizacion de scores a escala 0-1
 - Combinacion ponderada 60/40
 - Evaluacion comparativa de los tres metodos
 
-### Fase 5 — Evaluacion
+### Fase 5 — Evaluación
 - RMSE y MAE para prediccion de ratings
 - Precision@10 y Recall@10
 - Coverage del catalogo
@@ -119,14 +119,14 @@ Dataset MovieLens 100K
 
 ## Visualizaciones
 
-| Grafico | Descripcion |
+| Gráfico | Descripción |
 |---------|-------------|
 | ![ratings](images/distribucion_ratings.png) | Distribucion de ratings |
 | ![top15](images/top15_peliculas.png) | Top 15 peliculas mejor valoradas |
 | ![colaborativo](images/recomendaciones_colaborativo.png) | Recomendaciones colaborativas |
 | ![contenido](images/recomendaciones_contenido.png) | Recomendaciones por contenido |
 | ![hibrido](images/recomendaciones_hibridas.png) | Recomendaciones hibridas |
-| ![comparacion](images/comparacion_metodos.png) | Comparacion de los 3 metodos |
+| ![comparacion](images/comparacion_metodos.png) | Comparacion de los 3 métodos |
 | ![generos](images/mapa_generos.png) | Mapa de calor de generos |
 | ![metricas](images/metricas_evaluacion.png) | Resumen de metricas |
 
