@@ -77,7 +77,7 @@ Datos → Matriz Usuario-Item → SVD → Predicción ratings
 |---------|-----------|-----------------|--------|
 | RMSE | 1.0181 | **0.7268** | -28.6% |
 | Precision@10 | 65.3% | **65.3%** | = |
-| Coverage | 24.7% | **51.49%** | - 26.7%|
+| Coverage | 24.7% | **51.49%** | - 108%|
 
 ### Primera recomendacion para usuario de prueba
 
